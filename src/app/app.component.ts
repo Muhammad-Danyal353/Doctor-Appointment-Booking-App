@@ -6,8 +6,19 @@ import { RouterOutlet } from '@angular/router';
   standalone: true,
   imports: [RouterOutlet],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrl: './app.component.css',
 })
 export class AppComponent {
-  title = 'AppointmentApp';
+  ShowLogin() {
+    const modal = document.getElementById('LoginModal');
+    if (modal != null) {
+      modal.style.display = 'block';
+    }
+  }
+  CloseLogin() {
+    const modal = document.getElementById('LoginModal');
+    if (modal != null) {
+      modal.style.display = 'none';
+    }
+  }
 }
