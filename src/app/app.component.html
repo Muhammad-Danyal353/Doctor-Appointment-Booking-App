@@ -1,24 +1,32 @@
 <nav class="navbar navbar-expand-sm navbar-dark bg-primary">
     <div class="container-fluid">
-        <a class="navbar-brand" href="javascript:void(0)">Hospital Appointment Booking</a>
+        <a class="navbar-brand" routerLink="/">Hospital Appointment Booking</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="mynavbar">
             <ul class="navbar-nav me-auto">
+                @if(HospitalObj.hospitalId){
+
                 <li class="nav-item">
-                    <a class="nav-link" href="javascript:void(0)">Link</a>
+                    <a class="nav-link"  style="color: white;" routerLink="/appointments">All Appointments</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="javascript:void(0)">Link</a>
+                    <a class="nav-link"  style="color: white;" routerLink="/patients">All Patients</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="javascript:void(0)">Link</a>
-                </li>
+                <!-- <li class="nav-item">
+                        <a class="nav-link" href="javascript:void(0)">Link</a>
+                    </li> -->
+                }
             </ul>
             <form class="d-flex">
-                <input class="form-control me-2" type="text" placeholder="Search">
-                <button class="btn btn-primary" type="button" (click)="ShowLogin()">Login</button>
+                <!-- <input class="form-control me-2" type="text" placeholder="Search"> -->
+                @if(HospitalObj.hospitalId !== 0){
+                <button class="btn btn-light" type="button">{{HospitalObj.hospitalEmailId}}</button> &nbsp;
+                <button class="btn btn-light" type="button" (click)="LogOut()">Log Out</button>
+                }@else {
+                <button class="btn btn-light" type="button" (click)="ShowLogin()">Login</button>
+                }
             </form>
         </div>
     </div>
@@ -30,27 +38,33 @@
         <div class="modal-content">
 
             <!-- Modal Header -->
-            <div class="modal-header">
+            <div class="modal-header d-flex justify-content-around">
                 <h4 class="modal-title">Login to App</h4>
+                <span *ngIf="isLoading">
+                    <p-progressSpinner [style]="{'width': '40px', 'height': '40px' ,'padding-left':'200px'}"
+                        strokeWidth="3" animationDuration=".9s" /></span>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" (click)="CloseLogin()"></button>
             </div>
             <div class="modal-body">
                 <div class="col-md-12 mb-4">
                     <div data-mdb-input-init class="form-outline">
-                        <label class="form-label" for="form3Example1m1">Email</label>
-                        <input type="text" id="form3Example1m1" class="form-control form-control-lg" />
+                        <label class="form-label" for="form3Example1m1">User Name</label>
+                        <input type="text" id="form3Example1m1" [(ngModel)]="UserObj.userName"
+                            class="form-control form-control-lg" />
                     </div>
                 </div>
                 <div class="col-md-12 mb-4">
                     <div data-mdb-input-init class="form-outline">
                         <label class="form-label" for="form3Example1n1">Password</label>
-                        <input type="text" id="form3Example1n1" class="form-control form-control-lg" />
+                        <input type="text" id="form3Example1n1" [(ngModel)]="UserObj.password"
+                            class="form-control form-control-lg" />
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
                     (click)="CloseLogin()">Close</button>
+                <button type="button" class="btn btn-success" data-bs-dismiss="modal" (click)="Login()">Login</button>
             </div>
 
         </div>

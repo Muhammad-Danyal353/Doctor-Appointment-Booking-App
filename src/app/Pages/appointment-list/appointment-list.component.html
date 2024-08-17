@@ -1,1 +1,127 @@
-<p>appointment-list works!</p>
+<div class="row">
+    <div class="col-8">
+        <div class="row mb-3 px-3 py-3">
+            <div class="col-12 mb-3">
+                <div class="d-flex w-100 mb-3">
+                    <button class="btn btn-warning" type="button" (click)="getAllApointments()">All
+                        Appointments</button>&nbsp;
+                    <button class="btn btn-warning" type="button"
+                        (click)="getAppointmentsBYHospitalId(AppointmentObj.hospitalId)">
+                        Show Logged In Hospital Appointments
+                    </button>
+                </div>
+                <div *ngIf="isLoading" class="w-100 d-flex justify-content-center">
+                    <p-progressSpinner [style]="{'width': '60px', 'height': '60px' ,'padding-left':'200px'}"
+                        strokeWidth="7" animationDuration=".9s" />
+                </div>
+                <div class="row" *ngIf="!isLoading">
+                    <div class="col-md-4 mb-4" *ngFor="let item of appointmentList">
+                        <div class="card12 p-3">
+                            <div class="card12-details">
+                                <p class="text-title">{{ item.name }}</p>
+                                <p class="text-body"><b> Appointment Narration </b></p>
+                                <p class="text-body">{{ item.naration }}</p>
+                                <p class="text-body"><b> Hospital Name </b></p>
+                                <p class="text-body">{{ isShowAllAppointments ? item.hospitalName :
+                                    AppointmentObj.hospitalName}}</p>
+                                <p class="text-body"><b> Appointment Date </b></p>
+                                <p class="text-body">{{ item.appointmentDate }}</p>
+                                <p class="text-body"><b> Appointment Time </b></p>
+                                <p class="text-body">{{ item.appointmentTime }}</p>
+                                <p class="text-body"><b> Patient Mobile No. </b></p>
+                                <p class="text-body">{{ item.mobileNo }}</p>
+                                <p class="text-body"><b> Is First Visit </b></p>
+                                <p class="text-body">{{ item.isFirstVisit ? 'Yes' : 'No' }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-4 px-3 py-3">
+        <div class="card p-3 position-fixed">
+            <h5 class="card-title text-center bg-secondary text-white p-2">New Appointment</h5>
+
+            <form>
+                <!-- Name -->
+                <label for="name" class="d-flex justify-content-center"> Name</label>
+                <div class="form-group mb-3 d-flex">
+
+                    <i class="fas fa-user me-2"></i>
+                    <input type="text" class="form-control" placeholder="Enter Name" name="name"
+                        [(ngModel)]="AppointmentObj.name" />
+                </div>
+
+                <!-- Mobile No and City -->
+                <label for="mobileNo" class="d-flex justify-content-center">Mobile No & City</label>
+                <div class="form-group mb-3 d-flex">
+                    <i class="fas fa-phone me-2"></i>
+                    <input type="text" class="form-control" placeholder="Enter Mobile No" name="mobileNo"
+                        [(ngModel)]="AppointmentObj.mobileNo" />
+                    <i class="fas fa-map-marker-alt ms-2 me-2"></i>
+                    <input type="text" class="form-control" placeholder="Enter City" name="city"
+                        [(ngModel)]="AppointmentObj.city" />
+                </div>
+
+                <!-- Age and Is First Time -->
+                <label for="age" class="d-flex justify-content-center">Age & Is First Visit</label>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group mb-3 d-flex">
+                            <i class="fas fa-calendar me-2"></i>
+                            <input type="number" class="form-control" placeholder="Enter Age" name="age"
+                                [(ngModel)]="AppointmentObj.age" />
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-check ">
+                            <input class="form-check-input" type="checkbox" name="isFirstVisit"
+                                [(ngModel)]="AppointmentObj.isFirstVisit" />
+                            <label class="form-check-label">Is First Time</label>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <!-- Appointment Date and Time -->
+                <label for="appointmentDate" class="d-flex justify-content-center">Appointment Date & Time</label>
+                <div class="form-group mb-3 d-flex">
+                    <i class="fas fa-calendar-alt me-2"></i>
+                    <input type="date" class="form-control" name="appointmentDate"
+                        [(ngModel)]="AppointmentObj.appointmentDate" />
+                    <i class="fas fa-clock ms-2 me-2"></i>
+                    <input type="time" class="form-control" name="appointmentTime"
+                        [(ngModel)]="AppointmentObj.appointmentTime" />
+                </div>
+
+                <!-- Narration -->
+                <label for="naration" class="d-flex justify-content-center">Narration</label>
+                <div class="form-group mb-3 d-flex">
+                    <i class="fas fa-edit me-2"></i>
+                    <textarea class="form-control" placeholder="Enter Narration" name="naration"
+                        [(ngModel)]="AppointmentObj.naration"></textarea>
+                </div>
+                <!-- Gender -->
+                <div class="form-group mb-3 d-flex">
+                    <i class="fas fa-venus-mars me-2"></i>
+                    <div class="form-check me-3">
+                        <input class="form-check-input" type="radio" name="gender" [(ngModel)]="AppointmentObj.gender"
+                            value="Male" />
+                        <label class="form-check-label">Male</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="gender" [(ngModel)]="AppointmentObj.gender"
+                            value="Female" />
+                        <label class="form-check-label">Female</label>
+                    </div>
+                </div>
+                <!-- Submit Button -->
+                <div class="text-end">
+                    <button type="button" class="btn btn-warning" (click)="AddAppointment()">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

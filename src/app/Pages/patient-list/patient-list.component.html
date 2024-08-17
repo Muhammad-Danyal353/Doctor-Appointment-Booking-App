@@ -1,1 +1,99 @@
-<p>patient-list works!</p>
+<div class="row">
+    <div class="col-8">
+        <div class="row mb-3 px-3 py-3">
+            <div class="col-12 mb-3">
+                <div class="d-flex w-100 mb-3">
+                    <button class="btn btn-warning" type="button" (click)="getAllPatients()">All
+                        Patients</button>&nbsp;
+                    <button class="btn btn-warning" type="button"
+                        (click)="getPatientsBYHospitalId(PatientObj.hospitalId)">
+                        Show Logged in hospital Patients
+                    </button>
+                </div>
+                <div *ngIf="isLoading" class="w-100 d-flex justify-content-center">
+                    <p-progressSpinner [style]="{'width': '60px', 'height': '60px' ,'padding-left':'200px'}"
+                        strokeWidth="7" animationDuration=".9s" />
+                </div>
+                <div class="row" *ngIf="!isLoading">
+                    <div class="col-md-4 mb-4" *ngFor="let item of PatientList">
+                        <div class="card12 p-3">
+                            <div class="card12-details">
+                                <p class="text-title">{{ item.name }}</p>
+                                <p class="text-body"><b> Patient City </b></p>
+                                <p class="text-body">{{ item.city }}</p>
+                                <p class="text-body"><b> Hospital Name </b></p>
+                                <p class="text-body">{{ isShowAllPatients ? item.hospitalName :
+                                    PatientObj.hospitalName}}</p>
+                                <p class="text-body"><b> Patient Gender </b></p>
+                                <p class="text-body">{{ item.gender }}</p>
+                                <p class="text-body"><b> Patient Mobile No. </b></p>
+                                <p class="text-body">{{ item.mobileNo }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-4 px-3 py-3">
+        <div class="card p-3 position-fixed">
+            <h5 class="card-title text-center bg-secondary text-white p-2">New Appointment</h5>
+
+            <form>
+                <!-- Name -->
+                <label for="name" class="d-flex justify-content-center"> Name</label>
+                <div class="form-group mb-3 d-flex">
+
+                    <i class="fas fa-user me-2"></i>
+                    <input type="text" class="form-control" placeholder="Enter Name" name="name"
+                        [(ngModel)]="PatientObj.name" />
+                </div>
+
+                <!-- Mobile No and City -->
+                <label for="mobileNo" class="d-flex justify-content-center">Mobile No & City</label>
+                <div class="form-group mb-3 d-flex">
+                    <i class="fas fa-phone me-2"></i>
+                    <input type="text" class="form-control" placeholder="Enter Mobile No" name="mobileNo"
+                        [(ngModel)]="PatientObj.mobileNo" />
+                    <i class="fas fa-map-marker-alt ms-2 me-2"></i>
+                    <input type="text" class="form-control" placeholder="Enter City" name="city"
+                        [(ngModel)]="PatientObj.city" />
+                </div>
+
+                <label for="age" class="d-flex justify-content-center">Age & Gender</label>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group mb-3 d-flex">
+                            <i class="fas fa-calendar me-2"></i>
+                            <input type="number" class="form-control" placeholder="Enter Age" name="age"
+                                [(ngModel)]="PatientObj.age" />
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group mb-3 d-flex">
+                            <i class="fas fa-venus-mars me-2"></i>
+                            <div class="form-check me-3">
+                                <input class="form-check-input" type="radio" name="gender"
+                                    [(ngModel)]="PatientObj.gender" value="Male" />
+                                <label class="form-check-label">Male</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="gender"
+                                    [(ngModel)]="PatientObj.gender" value="Female" />
+                                <label class="form-check-label">Female</label>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Gender -->
+
+                <!-- Submit Button -->
+                <div class="text-end">
+                    <button type="button" class="btn btn-warning" (click)="AddPatient()">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

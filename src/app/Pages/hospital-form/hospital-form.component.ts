@@ -11,24 +11,20 @@ import { Subscription } from 'rxjs';
   templateUrl: './hospital-form.component.html',
   styleUrl: './hospital-form.component.css',
 })
-export class HospitalFormComponent implements OnDestroy {
+export class HospitalFormComponent {
   hospitalObj: Hospital = new Hospital();
   HospitalService: HospitalService = inject(HospitalService);
   subscription!: Subscription;
   RegHospital() {
-    this.subscription = this.HospitalService.AddNewHostpital(
-      this.hospitalObj
-    ).subscribe({
+    this.HospitalService.AddNewHostpital(this.hospitalObj).subscribe({
       next: (res: IApiResponese) => {
         if (res.result) {
           alert('Hospital Registered successfully');
+          this.hospitalObj = new Hospital();
         } else {
           alert(res.message);
         }
       },
     });
-  }
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe()
   }
 }
