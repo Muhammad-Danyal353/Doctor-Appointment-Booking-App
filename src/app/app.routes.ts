@@ -1,22 +1,15 @@
 import { provideRouter, Routes } from '@angular/router';
 import { HomeComponent } from './Pages/home/home.component';
 import { AppointmentListComponent } from './Pages/appointment-list/appointment-list.component';
-import { DashboardComponent } from './Pages/dashboard/dashboard.component';
 import { PreloadingStrategy, Route } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { PatientListComponent } from './Pages/patient-list/patient-list.component';
 import { HospitalFormComponent } from './Pages/hospital-form/hospital-form.component';
-import { HospitalListComponent } from './Pages/hospital-list/hospital-list.component';
 import { AuthGuard } from './Core/Services/auth.guard';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
-  {
-    path: 'dashboard',
-    component: DashboardComponent,
-    canActivate: [AuthGuard],
-  },
   {
     path: 'appointments',
     component: AppointmentListComponent,
@@ -27,11 +20,7 @@ export const routes: Routes = [
     component: PatientListComponent,
     canActivate: [AuthGuard],
   },
-  {
-    path: 'hospitals',
-    component: HospitalListComponent,
-    canActivate: [AuthGuard],
-  },
+
   {
     path: 'new-hospital',
     component: HospitalFormComponent,
