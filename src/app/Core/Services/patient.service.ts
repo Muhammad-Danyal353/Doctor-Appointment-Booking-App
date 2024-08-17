@@ -3,33 +3,29 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { Constants } from '../Constants/constants';
-import {
-  IHospital,
-  IApiResponese,
-  Appointments,
-} from '../Interfaces/interfaces';
+import { IApiResponese, Patients } from '../Interfaces/interfaces';
 
 @Injectable({
   providedIn: 'root',
 })
-export class AppointmentService {
+export class PatientService {
   constructor(private http: HttpClient) {}
-  AddNewAppoinment(body: Appointments): Observable<IApiResponese> {
+  AddNewPatient(body: Patients): Observable<IApiResponese> {
     return this.http.post<IApiResponese>(
-      environment.baseUrl + Constants.API_END_POINT.ADD_APPOINTMENTS,
+      environment.baseUrl + Constants.API_END_POINT.ADD_PATIENT,
       body
     );
   }
-  getAppintmentsById(id: number) {
+  getPatientsById(id: number) {
     return this.http.get<IApiResponese>(
       environment.baseUrl +
-        Constants.API_END_POINT.GET_APPOINTMENTS_BY_HOSPITAL_ID +
+        Constants.API_END_POINT.GET_PATIENT_BY_HOSPITAL_ID +
         id
     );
   }
-  getAllApointments() {
+  getAllPatients() {
     return this.http.get<IApiResponese>(
-      environment.baseUrl + Constants.API_END_POINT.GET_ALL_APPOINTMENTS
+      environment.baseUrl + Constants.API_END_POINT.GET_ALL_PATIENTS
     );
   }
 }
